@@ -11,7 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login | <?php echo e($appData->app_nama ?? 'SIADEK'); ?></title>
     <!-- Favicon icon -->
-    <link rel="icon" href="<?php echo e(asset($appData->app_icon ?? 'komponen/login/images/favicon.png')); ?>" type="image/x-icon">
+    <link rel="icon" href="<?php echo e(asset($appData->app_icon ?? 'favicon.ico')); ?>" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -30,7 +30,7 @@
                             <div class="col-md-12 text-center">
                                 <div class="card-body">
                                     <div class="brand-wrapper">
-                                        <img src="<?php echo e(asset($appData->app_logo ?? 'komponen/login/images/logo.png')); ?>" alt="logo" class=""
+                                        <img src="<?php echo e(asset($appData->app_logo ?? 'komponen/login/images/logo_stikes_pi.png')); ?>" alt="logo" class=""
                                             style="width: 270px">
                                     </div>
                                     <p class="login-card-description">Masuk</p>
@@ -54,9 +54,9 @@ unset($__errorArgs, $__bag); ?>
                                         style="width: 100% !important; max-width: none !important">
                                         <?php echo csrf_field(); ?>
                                         <div class="form-group">
-                                            <label for="username" class="sr-only">Username (NIP/NIM)</label>
+                                            <label for="username" class="sr-only">Username</label>
                                             <input type="text" name="username" id="username" class="form-control"
-                                                placeholder="Username (NIDN/NIM)" minlength="3"
+                                                placeholder="Username" minlength="3"
                                                 value="<?php echo e(old('username')); ?>" required>
                                         </div>
                                         <div class="form-group mb-4">

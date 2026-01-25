@@ -113,8 +113,19 @@
                                     </thead>
                                     <tbody>
                                         <?php $__currentLoopData = $mhs_by_sts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data5): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <?php
+                                                $iconMapping = [
+                                                    'Aktif' => ['icon' => 'icofont-verification-check', 'color' => 'text-success'],
+                                                    'Non Aktif' => ['icon' => 'icofont-ban', 'color' => 'text-warning'],
+                                                    'Lulus' => ['icon' => 'icofont-hat-alt', 'color' => 'text-primary'],
+                                                    'Cuti' => ['icon' => 'icofont-ui-calendar', 'color' => 'text-info'],
+                                                    'Keluar/Mengundurkan diri' => ['icon' => 'icofont-external-link', 'color' => 'text-danger'],
+                                                    'Tanpa Keterangan' => ['icon' => 'icofont-info-circle', 'color' => 'text-muted'],
+                                                ];
+                                                $stsIcon = $iconMapping[$data5['status']] ?? ['icon' => 'icofont-info-circle', 'color' => 'text-muted'];
+                                            ?>
                                             <tr>
-                                                <td># <?php echo e($data5['status']); ?></td>
+                                                <td><i class="icofont <?php echo e($stsIcon['icon']); ?> <?php echo e($stsIcon['color']); ?> m-r-10 f-18"></i> <?php echo e($data5['status']); ?></td>
                                                 <td><?php echo e($data5['jml']); ?></td>
                                                 <td>Mahasiswa</td>
                                             </tr>
