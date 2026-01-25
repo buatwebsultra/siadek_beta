@@ -69,6 +69,9 @@ class BayarController extends Controller
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('mhs', function ($row) {
+                if (!$row->mahasiswa) {
+                    return '<span class="text-danger">ID: ' . $row->byr_mhs_id . ' (Data Tidak Ditemukan)</span>';
+                }
                 return $row->mahasiswa->mhs_nim .
                     '<br>' .
                     $row->mahasiswa->mhs_nama;

@@ -114,8 +114,19 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($mhs_by_sts as $data5)
+                                            @php
+                                                $iconMapping = [
+                                                    'Aktif' => ['icon' => 'icofont-verification-check', 'color' => 'text-success'],
+                                                    'Non Aktif' => ['icon' => 'icofont-ban', 'color' => 'text-warning'],
+                                                    'Lulus' => ['icon' => 'icofont-hat-alt', 'color' => 'text-primary'],
+                                                    'Cuti' => ['icon' => 'icofont-ui-calendar', 'color' => 'text-info'],
+                                                    'Keluar/Mengundurkan diri' => ['icon' => 'icofont-external-link', 'color' => 'text-danger'],
+                                                    'Tanpa Keterangan' => ['icon' => 'icofont-info-circle', 'color' => 'text-muted'],
+                                                ];
+                                                $stsIcon = $iconMapping[$data5['status']] ?? ['icon' => 'icofont-info-circle', 'color' => 'text-muted'];
+                                            @endphp
                                             <tr>
-                                                <td># {{ $data5['status'] }}</td>
+                                                <td><i class="icofont {{ $stsIcon['icon'] }} {{ $stsIcon['color'] }} m-r-10 f-18"></i> {{ $data5['status'] }}</td>
                                                 <td>{{ $data5['jml'] }}</td>
                                                 <td>Mahasiswa</td>
                                             </tr>

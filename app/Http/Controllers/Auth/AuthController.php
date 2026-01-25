@@ -49,40 +49,52 @@ class AuthController extends Controller
             'password' => 'required|min:2',
         ]);
 
-        $cekMhs = Mahasiswa::where('mhs_nim', $request->username)->first();
-        if ($cekMhs) {
-            if ($this->_authMahasiswa($request)) {
-                $request->session()->regenerate();
-                session()->put('menu', 'menu_mhs');
-                session()->put('nama', $cekMhs->mhs_nama);
-                return redirect()->intended('/student');
-            }
-        } else {
-            $cekDosen = Dosen::where('ds_nip', $request->username)->first();
-            if ($cekDosen) {
-                if ($this->_authDosen($request)) {
+        try {
+            $cekMhs = Mahasiswa::where('mhs_nim', $request->username)->first();
+            if ($cekMhs) {
+                if ($this->_authMahasiswa($request)) {
                     $request->session()->regenerate();
-                    session()->put('menu', 'menu_dosen');
-                    session()->put('nama', $cekDosen->ds_nama);
-                    session()->put('jur_id', $cekDosen->ds_jur_id);
-                    return redirect()->intended('/lecturer');
+                    session()->put('menu', 'menu_mhs');
+                    session()->put('nama', $cekMhs->mhs_nama);
+                    return redirect()->intended('/student');
                 }
             } else {
-                $cekAdmin = User::where('user_username', $request->username)->first();
-                if ($cekAdmin) {
-                    if ($this->_authAdmin($request)) {
+                $cekDosen = Dosen::where('ds_nip', $request->username)->first();
+                if ($cekDosen) {
+                    if ($this->_authDosen($request)) {
                         $request->session()->regenerate();
-                        session()->put('menu', 'menu_admin');
-                        session()->put('nama', $cekAdmin->user_nama);
-                        return redirect()->intended('/admin');
+                        session()->put('menu', 'menu_dosen');
+                        session()->put('nama', $cekDosen->ds_nama);
+                        session()->put('jur_id', $cekDosen->ds_jur_id);
+                        return redirect()->intended('/lecturer');
                     }
                 } else {
-                    return redirect()
-                        ->back()
-                        ->withInput()
-                        ->withErrors(['errorLogin' => 'Login Gagal. ID tidak ditemukan!']);
+                    $cekAdmin = User::where('user_username', $request->username)->first();
+                    if ($cekAdmin) {
+                        if ($this->_authAdmin($request)) {
+                            $request->session()->regenerate();
+                            session()->put('menu', 'menu_admin');
+                            session()->put('nama', $cekAdmin->user_nama);
+                            return redirect()->intended('/admin');
+                        }
+                    } else {
+                        return redirect()
+                            ->back()
+                            ->withInput()
+                            ->withErrors(['errorLogin' => 'Login Gagal. ID tidak ditemukan!']);
+                    }
                 }
             }
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors(['errorLogin' => 'Terjadi kesalahan koneksi ke database. Pastikan server database (MySQL) sudah aktif.']);
+        } catch (\Exception $e) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors(['errorLogin' => 'Terjadi kesalahan sistem. Silahkan coba beberapa saat lagi.']);
         }
 
         return redirect()
