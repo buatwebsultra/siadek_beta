@@ -42,7 +42,7 @@ Route::middleware('auth:admin,lecturer,student')->group(function () {
         Route::get('/jurusan',  [JurusanController::class, 'data'])->name('data.jurusan');
         Route::get('/dosen/{jur_id?}',  [DosenController::class, 'data'])->name('data.dosen');
         Route::get('/mahasiswa/{jur_id?}',  [MahasiswaController::class, 'data'])->name('data.mahasiswa');
-        Route::get('/mata-kuliah/{kode?}',  [MatkulController::class, 'data'])->name('data.matkul');
+        Route::get('/mata-kuliah/{kode?}',  [MatkulController::class, 'data'])->name('data.matkul_detail');
         Route::get('/ruangan',  [RuangController::class, 'data'])->name('data.ruangan');
         Route::get('/ruangan/{id?}',  [RuangController::class, 'get'])->name('data.ruangan.get');
         Route::get('/krs/{kode?}',  [KrsController::class, 'data'])->name('data.krs');
