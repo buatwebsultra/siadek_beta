@@ -1,0 +1,278 @@
+.select1 {
+    border-radius: 17px;
+}
+
+.btn-round {
+    border-radius: 20px;
+}
+
+:root {
+    --surface-color: #fff;
+    --curve: 40;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  .cards2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin: 2rem 5vw;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  .card2 {
+    position: relative;
+    display: block;
+    height: 300px;
+    border-radius: calc(var(--curve) * 1px);
+    overflow: hidden;
+    text-decoration: none;
+    /* background-color: #d3fff1; */
+    background: linear-gradient(90deg, hsl(160.9, 100%, 91.4%) 0%, hsl(171.5, 100%, 65.5%) 100%);
+    text-align: center;
+    -moz-box-shadow:     -7px 10px #dfdfdf;
+    -webkit-box-shadow:  -7px 10px #dfdfdf;
+    box-shadow:          -7px 10px #dfdfdf;
+  }
+
+  .card__image {
+    width: 60%;
+    height: auto;
+    margin-top: 25px;
+  }
+
+  .card__overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    border-radius: calc(var(--curve) * 1px);
+    background-color: var(--surface-color);
+    transform: translateY(100%);
+    transition: .2s ease-in-out;
+
+  }
+
+  .card2:hover .card__overlay {
+    transform: translateY(0);
+  }
+
+  .card__header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 2em;
+    padding: 2em;
+    border-radius: calc(var(--curve) * 1px) 0 0 0;
+    background-color: var(--surface-color);
+    transform: translateY(-100%);
+    transition: .2s ease-in-out;
+  }
+
+  .card__arc {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+    z-index: 1;
+  }
+
+  .card__arc path {
+    fill: var(--surface-color);
+    d: path("M 40 80 c 22 0 40 -22 40 -40 v 40 Z");
+  }
+
+  .card2:hover .card__header {
+    transform: translateY(0);
+  }
+
+  .card__thumb {
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #d3fff1;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 18pt;
+    padding-top: 5px;
+  }
+
+  .card__title {
+    font-size: 1em;
+    color: #6A515E;
+    text-transform: uppercase;
+  }
+
+  .card__tagline {
+    display: block;
+    margin: 1em 0;
+    font-family: "MockFlowFont";
+    font-size: .8em;
+    color: #D7BDCA;
+  }
+
+  .card__status {
+    font-size: .8em;
+    color: #D7BDCA;
+  }
+
+  .card__description {
+    padding: 0 2em 2em;
+    margin: 0;
+    color: #3549ff;
+    font-family: "MockFlowFont";
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    background-color: #f2fffe;
+  }
+
+  .cfont1 {
+    font-family: 'Pacifico', cursive;
+    /* font-family: 'Dancing Script', cursive; */
+}
+
+.cfont2 {
+    font-family: 'Outfit', sans-serif;
+}
+
+.bg-grad1 {
+    background-image: radial-gradient(circle 248px at center, #16d9e3 0%, #30c7ec 47%, #46aef7 100%) !important;
+}
+
+.bg-trans1 {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.footer2 {
+    background-color: #fff;
+    padding: 12px 10px;
+}
+
+.radius1 {
+    border-radius: 5px;
+}
+
+.chead1 {
+    font-weight: bold;
+    font-size: 12pt !important;
+}
+
+.shadow1 {
+    -moz-box-shadow:     -7px 10px #dfdfdf;
+    -webkit-box-shadow:  -7px 10px #dfdfdf;
+    box-shadow:          -7px 10px #dfdfdf;
+}
+
+.text-center {
+    vertical-align: middle !important;
+}
+
+.border-left-1 {
+    border-left: 3px solid #16d9e3;
+}
+
+.border-top-1 {
+  border-top: 3px solid #16d9e3;
+}
+
+.border-top-2 {
+  border-top: 3px solid #fe7e48;
+}
+
+.border-left-2 {
+  border-left: 4px solid #ff9d0b;
+}
+
+.border-bottom {
+  border-bottom: 0.5px solid #dadada !important;
+}
+
+.icon-btn {
+  font-size: 15pt !important;
+  font-weight: bold !important;
+  cursor: pointer !important;
+  margin: 0px 4px;
+}
+
+/* GRADIENT BG */
+
+.bg-malibu-beach {
+  background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%) !important;
+}
+
+.bg-grad-1 {
+  background: linear-gradient(90deg, hsla(152, 100%, 50%, 1) 0%, hsla(186, 100%, 69%, 1) 100%);
+}
+
+.bg-grad-2 {
+  background: linear-gradient(45deg, hsla(217, 100%, 50%, 1) 0%, hsla(186, 100%, 69%, 1) 100%);
+}
+
+.bg-grad-3 {
+  background: linear-gradient(45deg, hsla(33, 100%, 53%, 1) 0%, hsla(58, 100%, 68%, 1) 100%);
+}
+
+.bg-grad-4 {
+  background: linear-gradient(90deg, hsla(177, 87%, 79%, 1) 0%, hsla(235, 89%, 70%, 1) 100%);
+}
+
+.bg-grad-5 {
+  background: linear-gradient(90deg, hsla(141, 81%, 87%, 1) 0%, hsla(41, 88%, 75%, 1) 50%, hsla(358, 82%, 71%, 1) 100%);
+}
+
+.bg-grad-6 {
+  background: linear-gradient(90deg, hsla(167, 68%, 73%, 1) 0%, hsla(178, 59%, 48%, 1) 100%);
+}
+
+.card-image1 {
+  border-radius: 15px;
+  padding: 10px;
+  border: 1px solid #5bd5c9;
+}
+
+.btn-wide {
+  width: 100%;
+  display: block;
+  text-align: center;
+}
+
+/* Fill button styling */
+.btn-fill {
+  color: #292929;
+  font-size: 12pt;
+  font-weight: 200;
+  letter-spacing: 1px;
+  padding: 10px 40px 10px;
+  outline: 0;
+  border: 1px solid black;
+  cursor: pointer;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.btn-fill::after {
+  content: "";
+  background-color: #ffe54c;
+  width: 100%;
+  z-index: -1;
+  position: absolute;
+  height: 100%;
+  top: 5px;
+  left: 5px;
+  transition: 0.2s;
+}
+
+.btn-fill:hover::after {
+  top: 0px;
+  left: 0px;
+}
+/* End of Fill Button  */
