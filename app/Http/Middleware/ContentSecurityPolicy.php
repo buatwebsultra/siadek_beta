@@ -25,12 +25,12 @@ class ContentSecurityPolicy
         // - unsafe-eval: used by some jquery plugins
         // - CDNs used in the project: code.jquery.com, cdn.jsdelivr.net, stackpath.bootstrapcdn.com, fonts.googleapis.com, fonts.gstatic.com, cdn.materialdesignicons.com
         $csp = "default-src 'self'; ";
-        $csp .= "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://code.jquery.com https://cdn.jsdelivr.net https://stackpath.bootstrapcdn.com; ";
+        $csp .= "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://code.jquery.com https://cdn.jsdelivr.net https://stackpath.bootstrapcdn.com https://challenges.cloudflare.com; ";
         $csp .= "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://stackpath.bootstrapcdn.com https://cdn.materialdesignicons.com; ";
         $csp .= "font-src 'self' data: https://fonts.gstatic.com https://cdn.jsdelivr.net https://stackpath.bootstrapcdn.com https://cdn.materialdesignicons.com; ";
         $csp .= "img-src 'self' data: *; "; // Allow images from anywhere for flexibility
-        $csp .= "frame-src 'self'; ";
-        $csp .= "connect-src 'self'; ";
+        $csp .= "frame-src 'self' https://challenges.cloudflare.com; ";
+        $csp .= "connect-src 'self' https://challenges.cloudflare.com; ";
 
         // Inject headers
         $response->headers->set('Content-Security-Policy', $csp);

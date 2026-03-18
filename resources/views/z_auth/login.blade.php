@@ -58,8 +58,12 @@
                                             <input type="password" name="password" id="password" class="form-control"
                                                 placeholder="Password" minlength="4" required>
                                         </div>
+                                        <div class="form-group mb-4">
+                                            <div class="cf-turnstile" data-sitekey="{{ env('TURNSTILE_SITE_KEY') }}"></div>
+                                        </div>
                                         <button class="btn btn-block login-btn mb-4" type="submit">Login</button>
                                     </form>
+                                    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
                                     <a href="#!" class="forgot-password-link">Lupa password?</a>
                                     {{-- <p class="login-card-footer-text">Don't have an account? <a href="#!" class="text-reset">Register here</a></p> --}}
                                     <nav class="login-card-footer-nav">

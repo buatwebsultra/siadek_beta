@@ -26,28 +26,27 @@ class AuthController extends Controller
 
     public function postLogin(Request $request)
     {
-        // $rule = [
-        //     'username' => 'required|min:2',
-        //     'password' => 'required',
-        //     'tahun' => 'required',
-        // ];
-
-        // $messages = [
-        //     'required' => ':attribute kosong.',
-        //     'min' => ':attribute terlalu pendek',
-        // ];
-        // $validator = Validator::make($request->all(), $rule, $messages);
-
-        // if ($validator->fails()) {
-        //     return back()
-        //         ->withErrors($validator)
-        //         ->withInput();
-        // }
-
         $this->validate($request, [
             'username' => 'required|min:3',
             'password' => 'required|min:2',
+            'cf-turnstile-response' => 'required',
         ]);
+
+        $token = $request->input('cf-turnstile-response');
+        $secret = env('TURNSTILE_SECRET_KEY');
+
+        $response = \Illuminate\Support\Facades\Http::asForm()->post('https://challenges.cloudflare.com/turnstile/v0/siteverify', [
+            'secret' => $secret,
+            'response' => $token,
+            'remoteip' => $request->ip(),
+        ]);
+
+        if (!$response->json('success')) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors(['errorLogin' => 'Verifikasi Keamanan (Turnstile) gagal. Silakan coba lagi.']);
+        }
 
         try {
             $cekMhs = Mahasiswa::where('mhs_nim', $request->username)->first();
