@@ -38,16 +38,14 @@ class BayarController extends Controller
             if ($id == 'all') {
                 $data = Bayar::where('byr_type', 'ukt')
                     ->orderBy('byr_id', 'DESC')
-                    ->with(['mahasiswa', 'mahasiswa.jurusan'])
-                    ->get();
+                    ->with(['mahasiswa', 'mahasiswa.jurusan']);
             } else {
                 $data = Bayar::where('byr_type', 'ukt')
                     ->whereHas('mahasiswa', function ($query) use ($id) {
                         $query->where('mhs_jur_id', $id);
                     })
                     ->orderBy('byr_id', 'DESC')
-                    ->with(['mahasiswa', 'mahasiswa.jurusan'])
-                    ->get();
+                    ->with(['mahasiswa', 'mahasiswa.jurusan']);
             }
         } elseif ($guard == 'lecturer') {
             $level = $user->ds_level;
@@ -56,14 +54,12 @@ class BayarController extends Controller
                     $query->where('mhs_jur_id', $user->ds_jur_id);
                 })
                 ->orderBy('byr_id', 'DESC')
-                ->with(['mahasiswa', 'mahasiswa.jurusan'])
-                ->get();
+                ->with(['mahasiswa', 'mahasiswa.jurusan']);
         } else {
             $data = Bayar::where('byr_type', 'ukt')
                 ->where('byr_mhs_id', $user->mhs_id)
                 ->orderBy('byr_id', 'DESC')
-                ->with(['mahasiswa', 'mahasiswa.jurusan'])
-                ->get();
+                ->with(['mahasiswa', 'mahasiswa.jurusan']);
         }
 
         return DataTables::of($data)
@@ -113,6 +109,45 @@ class BayarController extends Controller
                         '</div>';
                 }
                 return $raw;
+            })
+            ->filterColumn('mhs', function ($query, $keyword) {
+                $query->whereHas('mahasiswa', function ($q) use ($keyword) {
+                    $q->where('mhs_nim', 'like', "%{$keyword}%")
+                        ->orWhere('mhs_nama', 'like', "%{$keyword}%");
+                });
+            })
+            ->filterColumn('mahasiswa.jurusan', function ($query, $keyword) {
+                $query->whereHas('mahasiswa.jurusan', function ($q) use ($keyword) {
+                    $q->where('jur_nama', 'like', "%{$keyword}%")
+                        ->orWhere('jur_jenjang', 'like', "%{$keyword}%");
+                });
+            })
+            ->filterColumn('status', function ($query, $keyword) {
+                $keywordLower = strtolower($keyword);
+                $statuses = [];
+                if (strpos('tidak valid', $keywordLower) !== false || strpos('tidak', $keywordLower) !== false) {
+                    $statuses[] = 2;
+                }
+                if (strpos('valid', $keywordLower) !== false || strpos('terverifikasi', $keywordLower) !== false || strpos('diverifikasi', $keywordLower) !== false) {
+                    $statuses[] = 1;
+                    if (!in_array(2, $statuses)) {
+                        $statuses[] = 2;
+                    }
+                }
+                if (strpos('proses', $keywordLower) !== false || strpos('diproses', $keywordLower) !== false) {
+                    $statuses[] = 0;
+                }
+
+                if (!empty($statuses)) {
+                    $query->whereIn('byr_id', function ($q) use ($statuses) {
+                        $q->select('byr_id')
+                            ->from('tb_bayar')
+                            ->whereIn('byr_status', $statuses);
+                    });
+                }
+            })
+            ->filterColumn('upload_at', function ($query, $keyword) {
+                $query->whereRaw("DATE_FORMAT(tb_bayar.created_at, '%Y-%m-%d %H:%i:%s') like ?", ["%{$keyword}%"]);
             })
             ->rawColumns(['mhs', 'status', 'menu'])
             ->make(true);

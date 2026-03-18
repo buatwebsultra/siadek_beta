@@ -298,12 +298,15 @@
                     },
                     {
                         data: 'mhs',
-                        name: 'mhs'
+                        name: 'mhs',
+                        orderable: false
                     },
                     {
                         data: 'mahasiswa.jurusan',
                         name: 'mahasiswa.jurusan',
+                        orderable: false,
                         render: function(data) {
+                            if (!data) return '<span class="text-danger">Data Tidak Ditemukan</span>';
                             return data.jur_nama + ' (' + data.jur_jenjang + ')';
                         }
                     },
@@ -320,7 +323,8 @@
                     {
                         data: 'status',
                         name: 'status',
-                        className: 'text-center'
+                        className: 'text-center',
+                        orderable: false
                     },
                     {
                         data: 'menu',
