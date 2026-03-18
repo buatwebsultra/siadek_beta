@@ -33,7 +33,7 @@ class AuthController extends Controller
         ]);
 
         $token = $request->input('cf-turnstile-response');
-        $secret = env('TURNSTILE_SECRET_KEY');
+        $secret = config('services.turnstile.secret_key');
 
         $response = \Illuminate\Support\Facades\Http::asForm()->post('https://challenges.cloudflare.com/turnstile/v0/siteverify', [
             'secret' => $secret,

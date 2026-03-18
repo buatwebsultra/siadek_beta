@@ -59,7 +59,7 @@
                                                 placeholder="Password" minlength="4" required>
                                         </div>
                                         <div class="form-group mb-4">
-                                            <div class="cf-turnstile" data-sitekey="{{ env('TURNSTILE_SITE_KEY') }}"></div>
+                                            <div class="cf-turnstile" data-sitekey="{{ config('services.turnstile.site_key') }}"></div>
                                         </div>
                                         <button class="btn btn-block login-btn mb-4" type="submit">Login</button>
                                     </form>
